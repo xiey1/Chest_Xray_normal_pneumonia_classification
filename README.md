@@ -21,7 +21,7 @@ Original source: http://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
   
   * The images have different sizes.
     Here is a panel of representative images from each class:
-  <img src= 'https://github.com/xiey1/Chest_Xray_normal_pneumonia_classification/blob/master/images/X-Ray_images_view.png' width=600px>
+  <img src= 'https://github.com/xiey1/Chest_Xray_normal_pneumonia_classification/blob/master/images/X-Ray_images_view.png' width=500px>
 
 # Challenge:
 The biggest challenge of this project is the imbalance of the dataset. 
@@ -60,7 +60,25 @@ However, the prediction accuracy for `NORMAL` class is really low (35.470%) with
 3. `Inception_v3_fc2`: Freeze all the convolutional layers, add a fully-connected layer with 256 nodes before the final classifier and train both the fully-connected layer as well as the final classifier
 4. `Inception_v3_fc2_w`: Add class weight to `Inception_v3_fc2` during training process
 
-# Result:
+# Result and Evaluation:
 The summary of the overall prediction accuracy and accuracy for each class, precision/recall/F1 score, and the results obtained from the confusion matrices (true positive, true negative, false positive, false negative) in test dataset is illustrated here:
 
 <img src= 'https://github.com/xiey1/Chest_Xray_normal_pneumonia_classification/blob/master/images/Prediction_Summary.png' width=900px>
+
+As we can see from the summary metrics, transfer learning using pretrained Inception_v3 model with trained fully-connected layer and classifier (Inception_v3_fc2) achieves the best performance:
+   * Overall prediction accuracy: 0.877
+   * Precision: 0.872
+   * Recall: 0.941
+   * F1 score: 0.905
+   * ROC_AUC: 0.929
+
+Adding class weight to both Inception_v3 and Inception_v3_fc2 models can increase precision but in sacrifice of recall. In order to achieve a good balance between precision and recall scores, I decide to use the `Inception_v3_fc2` model without adding class weight during training process.
+
+# Discussion:
+1. For binary classification problem, it is important to keep an approximate 50%/50% class ratio if possible to avoid the condition in which the trained model is in favor of improving prediction accuracy of the class that carries more weight while ignoring the other class.
+
+2. For situations with imbalanced dataset, we can either decrease the number of data points for the overrepresented class or try to collect more data for the underrepresented class. If neither approach is applicable, we can apply class weight during the training process.
+
+3. It is helpful to compute multiple evaluation metrics for binary classification questions. It can give us a more comprehensive understanding of the prediction performance of the trained model as well as provide direction of future improvement.
+
+4. We should consider the real medical application of this classification model and evaluate the potential risk of false positives and false negatives. It's possible that the automated medical image classification will be combined with other medical tests to help doctors make the final diagnosis. In this situation, it's also important to consider the performance of other tests when we fine-tune the hyperparameters of the model to achieve the best balance between false positive / false negative rate.
