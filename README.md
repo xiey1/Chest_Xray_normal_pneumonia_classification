@@ -11,6 +11,7 @@ Original source: http://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
   * `PNEUMONIA`
   
 #### Short overview of the dataset:
+
   * The data is provided in three datasets: Train, Val and Test. The number of images in each dataset and in each class is shown as below.
   
   <img src= 'https://github.com/xiey1/Chest_Xray_normal_pneumonia_classification/blob/master/images/Data_distribution.png' width=300px>
