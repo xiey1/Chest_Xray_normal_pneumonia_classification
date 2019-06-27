@@ -34,6 +34,8 @@ The biggest challenge of this project is the imbalance of the dataset.
  
  * The 'best' evaluation metric needs to be explored for this project.
  
+ * We need to avoid the situation that the model has a bias towards predicting the most frequent calss.
+ 
 ### Potential solutions:
  * Create a new validation dataset by stratifying the training dataset into training and validaiton sets. The class ratio needs to be kept equal in each dataset to achieve consistent prediction performance scores.
  
